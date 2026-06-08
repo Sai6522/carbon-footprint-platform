@@ -1,0 +1,11 @@
+{
+  "name": "carbon-footprint-platform",
+  "version": "1.0.0",
+  "description": "Personal carbon footprint calculator with personalized reduction tips",
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "keywords": ["carbon-footprint", "climate", "sustainability", "calculator"],
+  "author": "Venkata Sai Prasad Pulaparthi",
+  "license": "MIT"
+}
