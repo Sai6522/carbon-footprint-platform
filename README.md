@@ -4,7 +4,8 @@
 
 A lightweight, single-page web app that helps individuals **understand, calculate, and reduce** their personal carbon footprint through a guided questionnaire, visualised results, and personalised reduction tips.
 
-**Live Demo:** [https://vsaiprasadpulaparthi.github.io/carbon-footprint-platform](https://vsaiprasadpulaparthi.github.io/carbon-footprint-platform)
+**Live Demo:** [https://carbon-footprint-platfor-7a74d.web.app](https://carbon-footprint-platfor-7a74d.web.app)  
+**GitHub:** [https://github.com/Sai6522/carbon-footprint-platform](https://github.com/Sai6522/carbon-footprint-platform)
 
 ---
 
@@ -17,7 +18,7 @@ A lightweight, single-page web app that helps individuals **understand, calculat
 ## Approach & Logic
 
 ### Architecture
-Pure **HTML5 + CSS3 + Vanilla JavaScript** — zero dependencies, zero build steps. Opens directly in a browser or on GitHub Pages with no server required.
+Pure **HTML5 + CSS3 + Vanilla JavaScript** — zero dependencies, zero build steps. Opens directly in a browser with no server required.
 
 ### Calculation Model
 
@@ -37,12 +38,12 @@ CO2e = activity_volume × emission_factor × modifier
 ```
 
 - Car: `km/year × kg CO₂e per km` (factor varies by fuel type: petrol 0.21, hybrid 0.11, EV 0.053)
-- Flights: fixed per return trip (short-haul 255 kg, long-haul 1 500 kg including radiative forcing)
+- Flights: fixed per return trip (short-haul 255 kg, long-haul 1,500 kg including radiative forcing)
 - Electricity: `annual kWh × grid intensity` (grid 0.233, renewable 0.05, coal 0.82 kg/kWh)
-- Diet: annual baseline (meat-heavy 3 300 kg → vegan 900 kg) × food-waste multiplier
+- Diet: annual baseline (meat-heavy 3,300 kg → vegan 900 kg) × food-waste multiplier
 - Clothing: `items/month × 12 × 6 kg per garment`
 
-Total is compared against the **global average of 4 700 kg CO₂e/year** (World Bank / IPCC).
+Total is compared against the **global average of 4,700 kg CO₂e/year** (World Bank / IPCC).
 
 ### Tips Engine
 
@@ -64,6 +65,8 @@ Users can tick pledges (mapped to tips) and see the combined potential annual sa
 - 📤 One-tap share via Web Share API or clipboard
 - ♿ Fully accessible: ARIA labels, skip link, keyboard navigation, focus indicators
 - 📱 Responsive — works on mobile, tablet, and desktop
+- 🧪 43 unit tests across 8 suites (all passing)
+- 🔒 Content Security Policy, input sanitization, no external dependencies
 
 ---
 
@@ -71,15 +74,20 @@ Users can tick pledges (mapped to tips) and see the combined potential annual sa
 
 ```bash
 # Clone
-git clone https://github.com/vsaiprasadpulaparthi/carbon-footprint-platform.git
+git clone https://github.com/Sai6522/carbon-footprint-platform.git
 cd carbon-footprint-platform
 
 # Open directly — no server needed
-open index.html   # macOS
-xdg-open index.html  # Linux
+open index.html        # macOS
+xdg-open index.html   # Linux
+start index.html       # Windows
 ```
 
-Or deploy instantly to **GitHub Pages**: Settings → Pages → Deploy from `main` branch root.
+**Run tests:**
+```bash
+node tests.js
+# or open test.html in a browser
+```
 
 ---
 
@@ -87,9 +95,12 @@ Or deploy instantly to **GitHub Pages**: Settings → Pages → Deploy from `mai
 
 ```
 carbon-footprint-platform/
-├── index.html   # Structure & semantic markup
-├── style.css    # Styling, responsive layout, accessibility
-├── app.js       # Calculation engine, tips logic, DOM rendering
+├── index.html     # Structure & semantic markup
+├── style.css      # Styling, responsive layout, accessibility
+├── app.js         # Calculation engine, tips logic, DOM rendering
+├── tests.js       # 43 unit tests (Node.js compatible)
+├── test.html      # Browser-based test runner
+├── firebase.json  # Firebase Hosting config
 └── README.md
 ```
 
@@ -112,7 +123,7 @@ carbon-footprint-platform/
 - HTML5 · CSS3 · Vanilla JavaScript (ES6+)
 - Web Share API · Clipboard API
 - ARIA / WCAG 2.1 AA accessibility standards
-- Deployed via GitHub Pages
+- Deployed via **Firebase Hosting**
 
 ---
 
