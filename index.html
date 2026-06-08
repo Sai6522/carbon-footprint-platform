@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Calculate and reduce your personal carbon footprint with actionable insights." />
+  <title>Carbon Footprint Awareness Platform</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header role="banner">
+    <div class="header-inner">
+      <span class="logo" aria-hidden="true">🌿</span>
+      <div>
+        <h1>Carbon Footprint Tracker</h1>
+        <p class="tagline">Understand. Track. Reduce.</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ── CALCULATOR ── -->
+    <section id="calculator" aria-labelledby="calc-title">
+      <h2 id="calc-title">Calculate Your Annual Carbon Footprint</h2>
+      <p class="section-desc">Answer a few questions about your lifestyle. All fields are optional — leave blank to use averages.</p>
+
+      <form id="footprint-form" novalidate>
+
+        <!-- Transport -->
+        <fieldset>
+          <legend>🚗 Transport</legend>
+
+          <div class="field-group">
+            <label for="car-km">Car travel (km/week)</label>
+            <input type="number" id="car-km" name="car-km" min="0" max="5000" placeholder="e.g. 100" aria-describedby="car-km-hint" />
+            <span id="car-km-hint" class="hint">Average petrol/diesel car</span>
+          </div>
+
+          <div class="field-group">
+            <label for="car-type">Car fuel type</label>
+            <select id="car-type" name="car-type" aria-label="Car fuel type">
+              <option value="petrol">Petrol / Diesel</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="electric">Electric</option>
+              <option value="none">I don't drive</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="flights-short">Short-haul flights (per year, &lt;3 h)</label>
+            <input type="number" id="flights-short" name="flights-short" min="0" max="100" placeholder="e.g. 2" />
+          </div>
+
+          <div class="field-group">
+            <label for="flights-long">Long-haul flights (per year, &gt;3 h)</label>
+            <input type="number" id="flights-long" name="flights-long" min="0" max="100" placeholder="e.g. 1" />
+          </div>
+
+          <div class="field-group">
+            <label for="public-transport">Public transport (bus/train, km/week)</label>
+            <input type="number" id="public-transport" name="public-transport" min="0" max="5000" placeholder="e.g. 50" />
+          </div>
+        </fieldset>
+
+        <!-- Home Energy -->
+        <fieldset>
+          <legend>🏠 Home Energy</legend>
+
+          <div class="field-group">
+            <label for="electricity">Monthly electricity bill (kWh)</label>
+            <input type="number" id="electricity" name="electricity" min="0" max="5000" placeholder="e.g. 250" />
+          </div>
+
+          <div class="field-group">
+            <label for="energy-source">Primary electricity source</label>
+            <select id="energy-source" name="energy-source">
+              <option value="grid">National grid (mixed)</option>
+              <option value="renewable">Mostly renewable / green tariff</option>
+              <option value="coal">Mostly coal / fossil fuel heavy</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="heating">Heating fuel</label>
+            <select id="heating" name="heating">
+              <option value="gas">Natural gas</option>
+              <option value="electric">Electric (heat pump / resistance)</option>
+              <option value="oil">Heating oil</option>
+              <option value="none">No central heating</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="household-size">Household size (people)</label>
+            <input type="number" id="household-size" name="household-size" min="1" max="20" placeholder="e.g. 3" />
+          </div>
+        </fieldset>
+
+        <!-- Diet -->
+        <fieldset>
+          <legend>🍽️ Diet</legend>
+          <div class="field-group">
+            <label for="diet">Diet type</label>
+            <select id="diet" name="diet">
+              <option value="meat-heavy">Meat-heavy (beef/lamb daily)</option>
+              <option value="average" selected>Average omnivore</option>
+              <option value="low-meat">Low meat (occasional)</option>
+              <option value="pescatarian">Pescatarian</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="food-waste">Food waste level</label>
+            <select id="food-waste" name="food-waste">
+              <option value="high">High – throw away a lot</option>
+              <option value="medium" selected>Medium – some waste</option>
+              <option value="low">Low – minimal waste</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- Shopping & Lifestyle -->
+        <fieldset>
+          <legend>🛍️ Shopping &amp; Lifestyle</legend>
+
+          <div class="field-group">
+            <label for="clothing">New clothing items bought per month</label>
+            <input type="number" id="clothing" name="clothing" min="0" max="100" placeholder="e.g. 3" />
+          </div>
+
+          <div class="field-group">
+            <label for="electronics">New electronic devices per year</label>
+            <input type="number" id="electronics" name="electronics" min="0" max="50" placeholder="e.g. 1" />
+          </div>
+
+          <div class="field-group">
+            <label for="streaming">Daily screen/streaming hours</label>
+            <input type="number" id="streaming" name="streaming" min="0" max="24" placeholder="e.g. 4" />
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn-primary" id="calculate-btn">
+          Calculate My Footprint
+        </button>
+      </form>
+    </section>
+
+    <!-- ── RESULTS ── -->
+    <section id="results" aria-labelledby="results-title" aria-live="polite" hidden>
+      <h2 id="results-title">Your Carbon Footprint</h2>
+
+      <div class="results-grid">
+        <div class="result-card total">
+          <span class="result-label">Total Annual Emissions</span>
+          <span class="result-value" id="total-co2"></span>
+          <span class="result-unit">kg CO₂e / year</span>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Global Average</span>
+          <span class="result-value">4,700</span>
+          <span class="result-unit">kg CO₂e / year</span>
+        </div>
+        <div class="result-card">
+          <span class="result-label">Your Status</span>
+          <span class="result-value" id="status-label"></span>
+          <span class="result-unit" id="status-desc"></span>
+        </div>
+      </div>
+
+      <!-- Category breakdown bar chart -->
+      <div class="breakdown" aria-label="Emissions breakdown by category">
+        <h3>Breakdown by Category</h3>
+        <div id="breakdown-bars" role="list"></div>
+      </div>
+
+      <!-- Gauge / Visual indicator -->
+      <div class="gauge-wrap" aria-hidden="true">
+        <div class="gauge">
+          <div class="gauge-fill" id="gauge-fill"></div>
+        </div>
+        <div class="gauge-labels">
+          <span>0</span><span>2,350</span><span>4,700</span><span>9,400+</span>
+        </div>
+      </div>
+
+      <button class="btn-secondary" id="recalculate-btn">Recalculate</button>
+    </section>
+
+    <!-- ── INSIGHTS & TIPS ── -->
+    <section id="insights" aria-labelledby="insights-title" hidden>
+      <h2 id="insights-title">Personalized Reduction Tips</h2>
+      <p id="insights-intro"></p>
+      <ul id="tips-list" role="list" class="tips-list"></ul>
+
+      <div class="pledge-box">
+        <h3>🌱 Take a Pledge</h3>
+        <p>Select the actions you commit to taking this year:</p>
+        <div id="pledge-options" role="group" aria-label="Pledge options"></div>
+        <div id="pledge-savings" aria-live="polite"></div>
+      </div>
+
+      <div class="share-box">
+        <h3>Share Your Commitment</h3>
+        <button class="btn-share" id="share-btn" aria-label="Share your carbon footprint result">
+          📤 Share Results
+        </button>
+        <p id="share-msg" aria-live="polite"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <p>Emission factors sourced from IPCC AR6, EPA, and DEFRA 2023 guidelines.</p>
+    <p>Built for PromptWars Challenge 3 · <a href="https://github.com/vsaiprasadpulaparthi/carbon-footprint-platform" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
