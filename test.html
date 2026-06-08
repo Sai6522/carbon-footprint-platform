@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tests — Carbon Footprint Platform</title>
+  <style>
+    body { font-family: monospace; background: #0d1117; color: #c9d1d9; padding: 2rem; }
+    h1 { color: #58a6ff; }
+    #output { white-space: pre; line-height: 1.7; }
+    .pass { color: #3fb950; }
+    .fail { color: #f85149; }
+    .suite { color: #e3b341; font-weight: bold; }
+    .summary { color: #58a6ff; font-weight: bold; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>🧪 Test Runner</h1>
+  <div id="output"></div>
+  <script>
+    // Redirect console to DOM
+    const out = document.getElementById('output');
+    const orig = { log: console.log, error: console.error };
+    function append(text, cls) {
+      const span = document.createElement('span');
+      span.className = cls || '';
+      span.textContent = text + '\n';
+      out.appendChild(span);
+    }
+    console.log = (...args) => { orig.log(...args); append(args.join(' '), args[0]?.startsWith('📋') ? 'suite' : args[0]?.startsWith('─') || args[0]?.startsWith('Result') || args[0]?.startsWith('🎉') ? 'summary' : 'pass'); };
+    console.error = (...args) => { orig.error(...args); append(args.join(' '), 'fail'); };
+  </script>
+  <script src="tests.js"></script>
+</body>
+</html>

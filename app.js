@@ -20,10 +20,18 @@ const EF = {
 
 const GLOBAL_AVG = 4700; // kg CO2e / year
 
+// ── Sanitize & clamp numeric input ───────────────────────────────────────────
+
+function safeNum(id, min = 0, max = Infinity, fallback = 0) {
+  const n = parseFloat(document.getElementById(id).value);
+  if (!isFinite(n)) return fallback;
+  return Math.min(max, Math.max(min, n));
+}
+
 // ── DOM helpers ───────────────────────────────────────────────────────────────
 
 const $ = id => document.getElementById(id);
-const val = id => parseFloat($( id).value) || 0;
+const val = id => safeNum(id, 0, 99999, 0);
 const sel = id => $(id).value;
 
 // ── Calculate ─────────────────────────────────────────────────────────────────
@@ -218,9 +226,14 @@ function updatePledgeSavings() {
 
 // ── Share ─────────────────────────────────────────────────────────────────────
 
+let shareListenerAttached = false;
+
 function setupShare(data) {
+  if (shareListenerAttached) return;
+  shareListenerAttached = true;
   $('share-btn').addEventListener('click', () => {
-    const text = `I just calculated my carbon footprint: ${Math.round(data.total).toLocaleString()} kg CO₂e/year using the Carbon Footprint Tracker. Check yours! #CarbonFootprint #PromptWars`;
+    const kg = Math.round(Math.max(0, data.total)).toLocaleString();
+    const text = `I just calculated my carbon footprint: ${kg} kg CO₂e/year using the Carbon Footprint Tracker. Check yours! #CarbonFootprint #PromptWars`;
     if (navigator.share) {
       navigator.share({ title: 'My Carbon Footprint', text }).catch(() => {});
     } else if (navigator.clipboard) {
@@ -247,5 +260,7 @@ $('recalculate-btn').addEventListener('click', () => {
   $('results').hidden = true;
   $('insights').hidden = true;
   $('calculator').hidden = false;
+  shareListenerAttached = false;
+  $('share-msg').textContent = '';
   $('calculator').scrollIntoView({ behavior: 'smooth' });
 });
